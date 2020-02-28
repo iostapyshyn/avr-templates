@@ -1,10 +1,10 @@
 BIN = blink
 
-PORT ?= /dev/cu.usbserial-FA1400
+PORT ?= /dev/tty.usbserial-FA1400
 MCU_TARGET ?= atmega16
 F_CPU ?= 16000000UL
 
 AVRDUDE_TARGET ?= m16
-PROGRAMMER ?= avr109
+PROGRAMMER ?= avrftdi
 
 -include ../avr.mk
