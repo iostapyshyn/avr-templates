@@ -41,7 +41,7 @@ OBJ = $(addprefix $(OBJDIR)/, $(SRC:%.c=%.o))
 
 DEPS = $(OBJ:.o=.d)
 
-HEX ?= $(BIN).hex
+HEX ?= $(OBJDIR)/$(BIN).hex
 ELF ?= $(OBJDIR)/$(BIN).elf
 LIST ?= $(OBJDIR)/$(BIN).list
 MAP ?= $(OBJDIR)/$(BIN).map
