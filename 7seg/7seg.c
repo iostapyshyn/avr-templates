@@ -8,7 +8,7 @@
    -4
  0| |3
    -   .2
-   1                   
+   1
 */
 
 //                               76543210
@@ -29,7 +29,7 @@ void seg_select(int seg) {
     PORTA |= (1 << seg);
 }
 
-void seg_init() {
+void seg_init(void) {
     DDRA |= (1 << PA0) | (1 << PA1) | (1 << PA2);
     DDRB = 0xFF;
 }
@@ -44,16 +44,16 @@ ISR(TIMER1_OVF_vect) {
     TCNT1 = F_CPU / 2 / 1024;
 }
 
-int main() {
+int main(void) {
     seg_init();
-    
+
     TCNT1 = F_CPU / 2 / 1024;
     TCCR1A = 0x00;
     TCCR1B = (1 << CS10) | (1 << CS12);
     TIMSK = (1 << TOIE1);
 
     sei();
-    
+
     while (1) {
         for (int i = 0; i < 10; i++) {
             seg_putdigit(i);

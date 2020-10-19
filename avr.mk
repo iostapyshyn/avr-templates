@@ -1,5 +1,6 @@
 PORT ?= usb
 MCU_TARGET ?= atmega328p
+
 F_CPU ?= 16000000UL
 
 AVRDUDE_TARGET ?= m328p
@@ -14,13 +15,22 @@ DEFINES +=
 LIBDIRS +=
 LIBS +=
 
-COMMONFLAGS += -mmcu=$(MCU_TARGET)
+COMMONFLAGS = -mmcu=$(MCU_TARGET)
 
-CFLAGS += -c $(COMMONFLAGS) -MD -Os -std=gnu99
+CFLAGS = -c $(COMMONFLAGS) -MD -Os -std=gnu99
+
+# Warnings
+CFLAGS += -Wall -Wno-main -Wundef -Wstrict-prototypes -Werror -Wfatal-errors -Wl,--relax,--gc-sections
+#CFLAGS += -pedantic
+
+# A few optimizations
+CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -ffunction-sections \
+          -fdata-sections -fno-split-wide-types -fno-tree-scev-cprop
+
 CFLAGS += $(addprefix -I, $(INCLUDEDIRS))
 CFLAGS += $(addprefix -D, $(DEFINES))
 
-LDFLAGS += $(COMMONFLAGS)
+LDFLAGS = $(COMMONFLAGS)
 LDFLAGS += $(addprefix -L, $(LIBDIRS)) $(LIBS)
 
 TOOLS_PATH ?= /usr/local
